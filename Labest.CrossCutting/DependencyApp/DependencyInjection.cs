@@ -35,7 +35,7 @@ namespace Labest.CrossCutting.DependencyApp
             ValidateIssuerSigningKey = true,
             IssuerSigningKey =
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("DESAFIO_LABEST"))
+                    Encoding.UTF8.GetBytes("12345678901234567890123456789012"))
         };
     });
 
