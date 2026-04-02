@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DependencyApp\" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Labest.Application\Labest.Application.csproj" />
+    <ProjectReference Include="..\Labest.Infra\Labest.Infra.csproj" />
   </ItemGroup>
 
 </Project>
