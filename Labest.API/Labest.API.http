@@ -1,0 +1,6 @@
+@Labest.API_HostAddress = http://localhost:5076
+
+GET {{Labest.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
