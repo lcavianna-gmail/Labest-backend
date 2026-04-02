@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Abstractions\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Labest.Domain\Labest.Domain.csproj" />
+    <ProjectReference Include="..\Labest.Infra\Labest.Infra.csproj" />
   </ItemGroup>
 
 </Project>
