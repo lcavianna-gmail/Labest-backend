@@ -6,6 +6,7 @@ using Labest.Infra.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -15,8 +16,10 @@ namespace Labest.CrossCutting.DependencyApp
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services)
+            this IServiceCollection services, IConfiguration configuration)
         {
+            var jwtKey = configuration["JwtSettings:SecretKey"];
+     
             services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("LabestDb"));
 
@@ -35,7 +38,7 @@ namespace Labest.CrossCutting.DependencyApp
             ValidateIssuerSigningKey = true,
             IssuerSigningKey =
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("12345678901234567890123456789012"))
+                   Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 
