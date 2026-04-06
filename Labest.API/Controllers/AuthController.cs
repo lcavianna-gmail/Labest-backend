@@ -22,7 +22,7 @@ namespace Labest.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto model)
+        public async Task<IActionResult> Register(RegisterRequestDto model)
         {
             var user = new ApplicationUser
             {
@@ -39,7 +39,7 @@ namespace Labest.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto model)
+        public async Task<IActionResult> Login(LoginRequestDto model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
 
