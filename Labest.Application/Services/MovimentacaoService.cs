@@ -3,12 +3,12 @@ using Labest.Domain.Interfaces;
 
 namespace Labest.Application.Services
 {
-    public class EstoqueService
+    public class MovimentacaoService
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMovimentacaoRepository _movimentacaoRepository;
 
-        public EstoqueService(
+        public MovimentacaoService(
             IProdutoRepository produtoRepository,
             IMovimentacaoRepository movimentacaoRepository)
         {
@@ -37,6 +37,11 @@ namespace Labest.Application.Services
             };
 
             await _movimentacaoRepository.Adicionar(movimentacao);
+        }
+
+        public async Task<IEnumerable<MovimentacaoEstoque>> ObterPorProduto(Guid produtoId)
+        {
+            return await _movimentacaoRepository.ObterPorProdutoId(produtoId);
         }
     }
 }

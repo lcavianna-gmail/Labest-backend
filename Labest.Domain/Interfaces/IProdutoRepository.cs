@@ -8,5 +8,6 @@ namespace Labest.Domain.Interfaces
         Task<Produto> ObterPorId(Guid id);
         Task Adicionar(Produto produto);
         Task Atualizar(Produto produto);
+        Task Excluir(Produto produto);
     }
 }

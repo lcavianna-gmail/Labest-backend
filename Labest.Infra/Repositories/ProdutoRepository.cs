@@ -15,9 +15,9 @@ namespace Labest.Infra.Repositories
         }
 
         public async Task<IEnumerable<Produto>> ObterTodos()
-            => await _context.Produtos.ToListAsync();
+            => await _context.Produtos.AsNoTracking().ToListAsync();
 
-        public async Task<Produto> ObterPorId(Guid id)
+        public async Task<Produto?> ObterPorId(Guid id)
             => await _context.Produtos.FindAsync(id);
 
         public async Task Adicionar(Produto produto)
@@ -29,6 +29,12 @@ namespace Labest.Infra.Repositories
         public async Task Atualizar(Produto produto)
         {
             _context.Produtos.Update(produto);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Excluir(Produto produto)
+        {
+            _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
         }
     }
