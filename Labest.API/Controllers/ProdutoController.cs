@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labest.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
-    [Route("api/produtos")]
+    [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
         private readonly ProdutoService _service;
