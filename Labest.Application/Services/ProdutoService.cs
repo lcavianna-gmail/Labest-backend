@@ -40,5 +40,20 @@ namespace Labest.Application.Services
                 Quantidade = produto.Quantidade
             };
         }
+
+        public async Task<ProdutoSaldoDto> ObterSaldo(Guid id)
+        {
+            var produto = await _repository.ObterPorId(id);
+
+            if (produto == null)
+                throw new Exception("Produto não encontrado");
+
+            return new ProdutoSaldoDto
+            {
+                ProdutoId = produto.Id,
+                Nome = produto.Nome,
+                QuantidadeEstoque = produto.Quantidade
+            };
+        }
     }
 }

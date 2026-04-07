@@ -24,5 +24,11 @@ namespace Labest.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ProdutoCreateDto dto) => Ok(await _service.Adicionar(dto));
 
+        [HttpGet("{id}/saldo")]
+        public async Task<IActionResult> ObterSaldo(Guid id)
+        {
+            var saldo = await _service.ObterSaldo(id);
+            return Ok(saldo);
+        }
     }
 }
