@@ -1,4 +1,5 @@
-﻿using Labest.Domain.Entities;
+﻿using Labest.Application.DTOs;
+using Labest.Domain.Entities;
 using Labest.Domain.Interfaces;
 
 namespace Labest.Application.Services
@@ -42,6 +43,21 @@ namespace Labest.Application.Services
         public async Task<IEnumerable<MovimentacaoEstoque>> ObterPorProduto(Guid produtoId)
         {
             return await _movimentacaoRepository.ObterPorProdutoId(produtoId);
+        }
+
+        public async Task<IEnumerable<MovimentacaoResponseDto>> ObterTodos()
+        {
+            var movimentacoes = await _movimentacaoRepository.ObterTodos();
+
+            return movimentacoes.Select(m => new MovimentacaoResponseDto
+            {
+                Id = m.Id,
+                ProdutoId = m.ProdutoId,
+                ProdutoNome = m.Produto.Nome,
+                Tipo = m.Tipo.ToString(),
+                Quantidade = m.Quantidade,
+                Data = m.DataMovimentacao,
+            });
         }
     }
 }

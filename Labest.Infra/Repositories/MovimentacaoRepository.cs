@@ -26,5 +26,12 @@ namespace Labest.Infra.Repositories
                 .Where(m => m.ProdutoId == produtoId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<MovimentacaoEstoque>> ObterTodos()
+{
+    return await _context.Movimentacoes
+        .Include(m => m.Produto)
+        .ToListAsync();
+}
     }
 }

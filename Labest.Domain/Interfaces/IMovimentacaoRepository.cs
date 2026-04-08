@@ -6,5 +6,6 @@ namespace Labest.Domain.Interfaces
     {
         Task Adicionar(MovimentacaoEstoque movimentacao);
         Task<IEnumerable<MovimentacaoEstoque>> ObterPorProdutoId(Guid produtoId);
+        Task<IEnumerable<MovimentacaoEstoque>> ObterTodos();
     }
 }
