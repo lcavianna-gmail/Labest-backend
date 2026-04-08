@@ -8,10 +8,13 @@ namespace Labest.Application.Services
     public class ProdutoService
     {
         private readonly IProdutoRepository _repository;
+        private readonly IMovimentacaoRepository _movimentacaoRepository;
 
-        public ProdutoService(IProdutoRepository repository)
+
+        public ProdutoService(IProdutoRepository repository, IMovimentacaoRepository movimentacaoRepository)
         {
             _repository = repository;
+            _movimentacaoRepository = movimentacaoRepository;
         }
 
         public async Task<IEnumerable<ProdutoResponseDto>> ObterTodos()
@@ -32,6 +35,19 @@ namespace Labest.Application.Services
             var produto = new Produto(dto.Nome, dto.Preco, dto.Quantidade);
 
             await _repository.Adicionar(produto);
+
+            // 🔥 REGRA DE NEGÓCIO
+            if (dto.Quantidade > 0)
+            {
+                var movimentacao = new MovimentacaoEstoque(
+                    produto.Id,
+                    TipoMovimentacao.Entrada,
+                    dto.Quantidade
+                );
+
+                await _movimentacaoRepository.Adicionar(movimentacao);
+            }
+
 
             return new ProdutoResponseDto
             {

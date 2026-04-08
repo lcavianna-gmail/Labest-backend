@@ -28,14 +28,7 @@ namespace Labest.Application.Services
 
             await _produtoRepository.Atualizar(produto);
 
-            var movimentacao = new MovimentacaoEstoque
-            {
-                Id = Guid.NewGuid(),
-                ProdutoId = produtoId,
-                Tipo = tipo,
-                Quantidade = quantidade,
-                DataMovimentacao = DateTime.UtcNow
-            };
+            var movimentacao = new MovimentacaoEstoque(produtoId, tipo, quantidade);
 
             await _movimentacaoRepository.Adicionar(movimentacao);
         }
