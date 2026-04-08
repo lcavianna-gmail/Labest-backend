@@ -1,11 +1,12 @@
 ﻿using Labest.Application.DTOs;
 using Labest.Application.Services;
-using Microsoft.AspNetCore.Authorization;
+using Labest.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Labest.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
@@ -29,6 +30,20 @@ namespace Labest.API.Controllers
         {
             var saldo = await _service.ObterSaldo(id);
             return Ok(saldo);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Atualizar(Guid id, ProdutoUpdateDto dto)
+        {
+            await _service.Atualizar(id, dto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Deletar(Guid id)
+        {
+            await _service.Remover(id);
+            return NoContent();
         }
     }
 }
