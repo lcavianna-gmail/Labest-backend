@@ -54,7 +54,6 @@ namespace Labest.CrossCutting.DependencyApp
             services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
             services.AddScoped<ProdutoService>();
             services.AddScoped<MovimentacaoService>();
-            services.AddScoped<EstoqueService>();
 
             return services;
         }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labest.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MovimentacaoController : ControllerBase

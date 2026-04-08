@@ -1,12 +1,13 @@
 ﻿using Labest.Application.DTOs;
 using Labest.Application.Services;
 using Labest.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Labest.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
