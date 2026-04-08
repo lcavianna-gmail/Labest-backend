@@ -1,9 +1,11 @@
 ﻿using Labest.Application.DTOs;
 using Labest.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labest.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MovimentacaoController : ControllerBase

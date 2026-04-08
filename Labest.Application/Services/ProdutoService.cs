@@ -1,6 +1,7 @@
 ﻿using Labest.Application.DTOs;
 using Labest.Domain.Entities;
 using Labest.Domain.Interfaces;
+using Labest.Infra.Repositories;
 
 namespace Labest.Application.Services
 {
@@ -39,6 +40,43 @@ namespace Labest.Application.Services
                 Preco = produto.Preco,
                 Quantidade = produto.Quantidade
             };
+        }
+
+        public async Task<ProdutoSaldoDto> ObterSaldo(Guid id)
+        {
+            var produto = await _repository.ObterPorId(id);
+
+            if (produto == null)
+                throw new Exception("Produto não encontrado");
+
+            return new ProdutoSaldoDto
+            {
+                ProdutoId = produto.Id,
+                Nome = produto.Nome,
+                QuantidadeEstoque = produto.Quantidade
+            };
+        }
+
+        public async Task Atualizar(Guid id, ProdutoUpdateDto dto)
+        {
+            var produto = await _repository.ObterPorId(id);
+
+            if (produto == null)
+                throw new Exception("Produto não encontrado");
+
+            produto.Atualizar(dto.Nome,dto.Preco,dto.Quantidade);
+
+            await _repository.Atualizar(produto);
+        }
+
+        public async Task Remover(Guid id)
+        {
+            var produto = await _repository.ObterPorId(id);
+
+            if (produto == null)
+                throw new Exception("Produto não encontrado");
+
+            await _repository.Excluir(produto);
         }
     }
 }
