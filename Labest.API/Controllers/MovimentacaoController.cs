@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labest.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MovimentacaoController : ControllerBase
@@ -23,6 +23,13 @@ namespace Labest.API.Controllers
             await _service.Movimentar(dto.ProdutoId, dto.Tipo, dto.Quantidade);
 
             return Ok("Movimentação realizada com sucesso");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var movimentacoes = await _service.ObterTodos();
+            return Ok(movimentacoes);
         }
 
         [HttpGet("{produtoId}")]
