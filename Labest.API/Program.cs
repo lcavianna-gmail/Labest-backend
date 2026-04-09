@@ -1,8 +1,16 @@
+using Serilog;
 using Labest.CrossCutting.DependencyApp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
