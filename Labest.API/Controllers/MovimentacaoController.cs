@@ -24,12 +24,13 @@ namespace Labest.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Movimentar([FromBody] MovimentacaoRequestDto dto)
         {
-            await _service.Movimentar(dto.ProdutoId, dto.Tipo, dto.Quantidade);
+            var movimentacao = await _service.Movimentar(dto.ProdutoId, dto.Tipo, dto.Quantidade);
 
-            _auditoria.Registrar(User.Identity?.Name ?? "Sistema",
-                                   "Id do Produto movimentado no estoque", dto.ProdutoId.ToString());
+            _auditoria.Registrar(User.Identity?.Name ?? "Sistema", $"{movimentacao.Tipo} de {movimentacao.Quantidade}",
+                                 movimentacao.ProdutoNome);
 
-            _logger.LogInformation("Id do Produto movimentado:", dto.ProdutoId);
+            _logger.LogInformation("Movimentação realizada: {Tipo} - Produto: {ProdutoNome}",
+                                    movimentacao.Tipo, movimentacao.ProdutoNome);
 
             return Ok("Movimentação realizada com sucesso");
         }
