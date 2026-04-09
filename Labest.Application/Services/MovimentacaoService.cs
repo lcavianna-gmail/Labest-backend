@@ -17,7 +17,7 @@ namespace Labest.Application.Services
             _movimentacaoRepository = movimentacaoRepository;
         }
 
-        public async Task Movimentar(Guid produtoId, TipoMovimentacao tipo, int quantidade)
+        public async Task<MovimentacaoResponseDto> Movimentar(Guid produtoId, TipoMovimentacao tipo, int quantidade)
         {
             var produto = await _produtoRepository.ObterPorId(produtoId);
 
@@ -31,6 +31,16 @@ namespace Labest.Application.Services
             var movimentacao = new MovimentacaoEstoque(produtoId, tipo, quantidade);
 
             await _movimentacaoRepository.Adicionar(movimentacao);
+
+            return new MovimentacaoResponseDto
+            {
+                Id = movimentacao.Id,
+                ProdutoId = movimentacao.ProdutoId,
+                ProdutoNome = movimentacao.Produto.Nome,
+                Tipo = movimentacao.Tipo.ToString(),
+                Quantidade = movimentacao.Quantidade,
+                Data = movimentacao.DataMovimentacao
+            };
         }
 
         public async Task<IEnumerable<MovimentacaoEstoque>> ObterPorProduto(Guid produtoId)

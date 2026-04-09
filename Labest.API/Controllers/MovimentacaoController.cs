@@ -11,16 +11,26 @@ namespace Labest.API.Controllers
     public class MovimentacaoController : ControllerBase
     {
         private readonly MovimentacaoService _service;
+        private readonly IAuditoriaService _auditoria;
+        private readonly ILogger<MovimentacaoController> _logger;
 
-        public MovimentacaoController(MovimentacaoService service)
+        public MovimentacaoController(MovimentacaoService service, IAuditoriaService auditoria, ILogger<MovimentacaoController> logger)
         {
             _service = service;
+            _auditoria = auditoria;
+            _logger = logger;
         }
 
         [HttpPost]
         public async Task<IActionResult> Movimentar([FromBody] MovimentacaoRequestDto dto)
         {
-            await _service.Movimentar(dto.ProdutoId, dto.Tipo, dto.Quantidade);
+            var movimentacao = await _service.Movimentar(dto.ProdutoId, dto.Tipo, dto.Quantidade);
+
+            _auditoria.Registrar(User.Identity?.Name ?? "Sistema", $"{movimentacao.Tipo} de {movimentacao.Quantidade}",
+                                 movimentacao.ProdutoNome);
+
+            _logger.LogInformation("Movimentação realizada: {Tipo} - Produto: {ProdutoNome}",
+                                    movimentacao.Tipo, movimentacao.ProdutoNome);
 
             return Ok("Movimentação realizada com sucesso");
         }
