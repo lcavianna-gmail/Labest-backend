@@ -1,7 +1,7 @@
 📦 Labest Backend
 📌 Propósito do Projeto
 
-O Labest Backend é uma API REST desenvolvida com foco em arquitetura limpa, organização em camadas e aplicação de boas práticas do ecossistema .NET.
+O Labest Backend é uma API REST desenvolvida como desafio com foco em uma arquitetura limpa, organização em camadas e aplicação de boas práticas do ecossistema .NET.
 
 O projeto foi estruturado para:
 
